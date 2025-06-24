@@ -6,6 +6,7 @@ from rest_framework import viewsets # This is for importing the view set
 from rest_framework.authentication import TokenAuthentication # it used for the user to authenticate themserlfes with the API
 from profiles_api import permissions
 from profiles_api import models
+from rest_framework import filters # This will help to add filters to viewset
 
 
 
@@ -118,3 +119,5 @@ class UserProfileViewSet(viewsets.ModelViewSet):
     queryset = models.UserProfile.objects.all()
     authentication_classes = (TokenAuthentication,) # The comma is to be created as Tuble.
     permission_classes = (permissions.UpdateOwnProfile,)
+    filter_backends = (filters.SearchFilter,)
+    search_fields = ('name', 'email',) # Django freamework will allow us to search by name or email.
