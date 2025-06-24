@@ -9,6 +9,8 @@ from profiles_api import views
 router = DefaultRouter()
 router.register('hello-viewset', views.HelloViewSet, basename='hello-viewset')
 router.register('profile', views.UserProfileViewSet) # the reason I didn't include basename here is because i included query set in views.py
+router.register('feed', views.UserProfilesFeedViewSet)
+
 
 # URL patterns for our API views
 urlpatterns = [
