@@ -3,6 +3,10 @@ from rest_framework.response import Response # when Django framework call APIVie
 from rest_framework import status
 from profiles_api import serializers
 from rest_framework import viewsets # This is for importing the view set
+from rest_framework.authentication import TokenAuthentication # it used for the user to authenticate themserlfes with the API
+from profiles_api import permissions
+from profiles_api import models
+
 
 
 # This class allow us to define an application logic for the endpoint
@@ -98,3 +102,19 @@ class HelloViewSet(viewsets.ViewSet):
     def destroy(self, request, pk=None):
         """Handle removing an object"""
         return Response({'http_method': 'DELETE'})
+
+
+
+
+# Creating new models viewset:
+#use a model view set is you connect it up to a
+#serializer class just like you would a regular view set and you provide a query,
+#set to the model view set so it knows which objects in the database are going,
+#to be managed through this view set,
+class UserProfileViewSet(viewsets.ModelViewSet):
+    """Handle creating and updating proiles"""
+    # assigning the serializer class:
+    serializer_class = serializers.UserProfileSerializer
+    queryset = models.UserProfile.objects.all()
+    authentication_classes = (TokenAuthentication,) # The comma is to be created as Tuble.
+    permission_classes = (permissions.UpdateOwnProfile,)
