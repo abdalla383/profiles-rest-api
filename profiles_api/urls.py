@@ -13,5 +13,6 @@ router.register('profile', views.UserProfileViewSet) # the reason I didn't inclu
 # URL patterns for our API views
 urlpatterns = [
     path('hello-view', views.HelloApiView.as_view()),  # For APIView
-    path('', include(router.urls)),                    # For ViewSet using router
+    path('login/', views.UserLoginApiView.as_view()),
+    path('', include(router.urls)) # For ViewSet using router
 ]
